@@ -1,0 +1,36 @@
+/* Custom styling for the checkbox to match the design */
+::ng-deep .custom-checkbox .mat-checkbox-frame {
+  border-radius: 50%;
+  border-width: 2px;
+  border-color: #737373;
+  width: 24px;
+  height: 24px;
+}
+
+::ng-deep .completed-checkbox .mat-checkbox-frame {
+  border-color: #d98326;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background {
+  background-color: transparent !important;
+}
+
+::ng-deep .completed-checkbox .mat-checkbox-checked .mat-checkbox-checkmark {
+  color: #d98326;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  width: 24px !important;
+  height: 24px !important;
+}
+
+/* Override Material button styles */
+::ng-deep .mat-raised-button {
+  box-shadow: none !important;
+}
+
+/* Override Material card styles */
+::ng-deep .mat-card {
+  padding: 0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+}

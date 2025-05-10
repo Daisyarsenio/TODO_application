@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Override Angular Material primary color to match the design */
+:root {
+  --mat-primary-color: #d98326;
+  --mat-accent-color: #76b7cd;
+}
+
+.mat-checkbox-checked.mat-primary .mat-checkbox-background {
+  background-color: var(--mat-primary-color) !important;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: var(--mat-accent-color) !important;
+}

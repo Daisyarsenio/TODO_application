@@ -1,0 +1,139 @@
+<div class="min-h-screen bg-[#f1ece6]">
+  <!-- Header -->
+  <header class="py-4 text-center">
+    <h1 class="text-5xl font-medium">
+      <span class="text-[#4A102A]"> MY TODO</span>
+      <span class="text-[#85193C] relative">
+        LIST
+        <span class="absolute -right-6 bottom-4">
+          <mat-icon class="text-[#67AE6E] text-4x5">check_circle</mat-icon>
+        </span>
+      </span>
+    </h1>
+  </header>
+
+  <!-- Main Content -->
+  <div class="max-w-3xl mx-auto">
+    <!-- Tab -->
+    <div class="flex text-2xl font-medium">
+      <div class="flex-1 py-4 text-center text-[#85193C] border-b-4 border-[#85193C] font-serif">Daisy Mascarinas</div>
+    </div>
+
+    <!-- Search bar -->
+    <div class="flex mt-6 mb-4 mx-4">
+      <div class="relative flex-1">
+        <mat-icon class="absolute left-3 top-3 text-[#969696]">search</mat-icon>
+        <input
+          matInput
+          [(ngModel)]="searchQuery"
+          (ngModelChange)="search()"
+          placeholder="Search tasks..."
+          class="w-full py-3 pl-10 pr-6 text-xl text-[#969696] bg-[#f3f3f3] rounded-full focus:outline-none"
+        />
+      </div>
+    </div>
+
+    <!-- Input area -->
+    <div class="flex mt-4 mb-4 mx-4">
+      <input
+        matInput
+        [(ngModel)]="newTodoTitle"
+        placeholder="What do you need to do?"
+        class="flex-1 py-3 px-6 text-xl text-[#969696] bg-[#f3f3f3] rounded-l-full focus:outline-none"
+        (keyup.enter)="addTodo()"
+      />
+      <button
+        mat-raised-button
+        class="bg-[#76b7cd] text-white px-8 py-3 text-xl font-medium rounded-r-full left-3 top-1"
+        (click)="addTodo()"
+      >
+        ADD
+      </button>
+    </div>
+
+    <!-- Task list -->
+    <mat-card class="mx-4 rounded-3xl overflow-hidden">
+      <div class="p-6 bg-[#f3f3f3]">
+        <div *ngFor="let todo of filteredTodos" class="mb-4">
+          <div class="flex items-center">
+            <!-- Custom checkbox styling -->
+            <div class="w-10 h-10 mr-3 flex-shrink-0">
+              <mat-checkbox
+                [(ngModel)]="todo.completed"
+                (change)="updateTodo(todo)"
+                [color]="'primary'"
+                class="custom-checkbox"
+                [ngClass]="{'completed-checkbox': todo.completed}"
+              ></mat-checkbox>
+            </div>
+
+            <!-- Todo text or edit input -->
+            <ng-container *ngIf="editingId !== todo.id; else editTemplate">
+              <span
+                [class.line-through]="todo.completed"
+                [class.text-[#c2c2c2]]="todo.completed"
+                [class.text-[#323232]]="!todo.completed"
+                class="text-xl flex-1"
+              >
+                {{ todo.title }}
+              </span>
+              <button
+                mat-icon-button
+                class="text-[#76b7cd]"
+                (click)="startEditing(todo)"
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button
+                mat-icon-button
+                class="text-[#b30b04]"
+                (click)="deleteTodo(todo.id)"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </ng-container>
+
+            <!-- Edit template -->
+            <ng-template #editTemplate>
+              <div class="flex-1 flex">
+                <input
+                  matInput
+                  [(ngModel)]="editText"
+                  class="flex-1 py-1 px-2 text-xl text-[#323232] bg-white border border-[#76b7cd] rounded focus:outline-none"
+                  (keyup.enter)="saveEdit(todo.id)"
+                />
+                <button
+                  mat-icon-button
+                  class="text-[#76b7cd]"
+                  (click)="saveEdit(todo.id)"
+                >
+                  <mat-icon>check</mat-icon>
+                </button>
+                <button
+                  mat-icon-button
+                  class="text-[#b30b04]"
+                  (click)="cancelEdit()"
+                >
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </ng-template>
+          </div>
+          <div class="border-b border-[#c2c2c2] mt-4"></div>
+        </div>
+
+        <!-- Clear completed button -->
+        <div class="flex justify-end mt-6">
+          <button
+            mat-button
+            class="text-[#d98326] font-medium"
+            (click)="clearCompleted()"
+          >
+            <mat-icon class="mr-1">close</mat-icon>
+            Clear Completed
+          </button>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
